@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    environment {
+        KUBECONFIG = credentials('new_config')  // Use Jenkins credentials for Kubeconfig
+    }
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Suhail1820/k8s-as-pp.git'
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                kubectl apply -f manifests/deployment.yaml
+                kubectl apply -f manifests/hpa.yaml
+                '''
+            }
+        }
+        stage('Verify Deployment') {
+            steps {
+                sh 'kubectl get pods'
+                sh 'kubectl get hpa'
+            }
+        }
+    }
+}
