@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        KUBECONFIG = credentials('new_config')  // Use Jenkins credentials for Kubeconfig
+        KUBECONFIG = credentials('kube-conf')  // Use Jenkins credentials for Kubeconfig
     }
     stages {
         stage('Checkout Code') {
@@ -20,7 +20,6 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh 'kubectl get pods'
-                sh 'kubectl get hpa'
             }
         }
     }
