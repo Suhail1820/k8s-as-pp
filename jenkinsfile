@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        KUBECONFIG = credentials('kube-conf')  // Use Jenkins credentials for Kubeconfig
+        KUBECONFIG = credentials('conf')  // Use Jenkins credentials for Kubeconfig
     }
     stages {
         stage('Checkout Code') {
